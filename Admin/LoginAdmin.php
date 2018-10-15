@@ -11,8 +11,8 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST')
 	//驗證碼匹配
 	if (isset($_SESSION['Mcode']) && $_POST['ValidateCode'] == $_SESSION['VCODE'])
 	{
-		$loginName = $_POST['loginName'];  
-		$loginPwd = sha1($_POST['loginPwd']); 
+		$loginName = $_POST['loginName'];
+		$loginPwd = sha1($_POST['loginPwd']);
 		setcookie('dlName',$loginName,time()+3600);
 		
 		//瀏覽器檢測、只支持IE核心
@@ -20,8 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST')
 		//if (!Matchs::isString($loginName, 4, 15)) 
 			//exit(back($UserError));
 		$UserModel = new UserModel();
-		//$Userjs = $UserModel->ExistUnion($loginName,$loginPwd); 
-		$User = $UserModel->ExistUnion($loginName, $loginPwd); 
+		//$Userjs = $UserModel->ExistUnion($loginName,$loginPwd);
+		$User = $UserModel->ExistUnion($loginName, $loginPwd);
  	    // dump($Userjs[0][0]);
 		if (!$User) exit(back($UserError));
 		if(is_numeric($User[0][0])  && $User[0][0]<90) {

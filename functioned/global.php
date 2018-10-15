@@ -6,7 +6,8 @@
   Author: Version:1.0
   Date:2011-12-7
 */
-error_reporting(0); 
+error_reporting(0);
+error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_WARNING);
 if (!defined('Copyright') && Copyright != 'Sorry, the page wrong path')
 exit('Sorry, the page wrong path');
 if (!defined('ROOT_PATH'))

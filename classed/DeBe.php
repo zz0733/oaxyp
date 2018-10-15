@@ -6,7 +6,7 @@ exit('Sorry, the page wrong path');
 if (!defined('ROOT_PATH'))
 exit('Sorry, the page wrong path');
 //网站logo名称：
-$logo="潮城";
+$logo="龙源";
 
 class DB 
 {
@@ -59,8 +59,8 @@ class DB
 	{
 		$result = NULL;
 		//$this->conn = $this->connect();
-		mysql_query("SET @@sql_mode = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'");
-		$query = mysql_query ($sql,$this->conn) or die ("Invalid query：".$sql . mysql_error());
+		mysql_query("SET @@sql_mode=\"NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION\";",$this->conn);
+		$query = mysql_query ($sql,$this->conn) or die ("Invalid query：".$sql."|".mysql_error());
 		switch ($parameter)
 		{
 			case 0 : 

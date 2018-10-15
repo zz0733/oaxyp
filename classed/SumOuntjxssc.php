@@ -35,9 +35,9 @@ class SumAmountjxssc
 	}
 
 	private function GetNumberIsNull ()
-	{ 
+	{
 		$result = $this->Formula();
-		$money = 0; 
+		$money = 0;
 		for ($i=0; $i<count($result); $i++)
 		{
 			$tuiShui = sumTuiSui ($result[$i]);
@@ -91,10 +91,9 @@ class SumAmountjxssc
 	{
 		$sql = "SELECT `g_qishu`, `g_ball_1`, `g_ball_2`, `g_ball_3`, `g_ball_4`, `g_ball_5`
 		FROM `g_history3` WHERE `g_qishu` = '{$this->Number}' AND g_ball_1 is not null LIMIT 1";
- 		 
 		$numberList = $this->db->query($sql, 1);
 		if ($numberList&& Copyright)
-		{ 
+		{
 			$param = $this->param == false ? "" : "AND g_id = '{$this->param}'";
 			$sql = "SELECT `g_id`, `g_s_nid`, `g_mumber_type`, `g_nid`, `g_date`, `g_type`, `g_qishu`, `g_mingxi_1`, `g_mingxi_1_str`, `g_mingxi_2`, `g_mingxi_2_str`, `g_odds`, `g_jiner`, `g_tueishui`, `g_tueishui_1`, `g_tueishui_2`, `g_tueishui_3`, `g_tueishui_4`, `g_distribution`, `g_distribution_1`, `g_distribution_2`, `g_distribution_3`, `g_win`, `g_t_id` ,`g_awin` ,`g_afail`
 			FROM `g_zhudan` WHERE `g_qishu` = '{$numberList[0]['g_qishu']}' {$param} {$this->where} ";
@@ -177,149 +176,7 @@ class SumAmountjxssc
 		}
 		return isset($resultList)?$resultList:array();
 	}
-	//测试开奖
-	public function winTest($issue,$num)
-	{ 
-		$numberList = [];
-		$item = [];
-		$item['g_qishu'] = $issue;
-		$item['g_ball_1'] = $num[0];
-		$item['g_ball_2'] = $num[1];
-		$item['g_ball_3'] = $num[2];
-		$item['g_ball_4'] = $num[3];
-		$item['g_ball_5'] = $num[4];
-		$numberList[] = $item; 
-		if (Copyright)
-		{ 
-			$param = $this->param == false ? "" : "AND g_id = '{$this->param}'";
-			$sql = "SELECT `g_id`, `g_s_nid`, `g_mumber_type`, `g_nid`, `g_date`, `g_type`, `g_qishu`, `g_mingxi_1`, `g_mingxi_1_str`, `g_mingxi_2`, `g_mingxi_2_str`, `g_odds`, `g_jiner`, `g_tueishui`, `g_tueishui_1`, `g_tueishui_2`, `g_tueishui_3`, `g_tueishui_4`, `g_distribution`, `g_distribution_1`, `g_distribution_2`, `g_distribution_3`, `g_win`, `g_t_id` ,`g_awin` ,`g_afail` FROM `g_zhudan` WHERE `g_qishu` = '{$issue}' ";
-			$resultList = $this->db->query($sql, 1); 
-			$resultList = $this->ResultCorrespond($numberList, $resultList); 
-			for ($i=0; $i<count($resultList); $i++)
-			{
-				if (Matchs::isNumber($resultList[$i]['g_mingxi_2'],1,1) && Copyright)
-				{
-					$gname=$resultList[$i]['g_nid'];
-					$dba = new DB();
-					$sqlauto = "SELECT `g_autowin`, `g_autofail` FROM `g_user` WHERE `g_name` = '$gname'";
-					$resultauto = $dba->query($sqlauto, 1);
-					if($resultauto[0]['g_autowin']==1||$resultList[$i]['g_awin']==1){
-						$reup=$resultList[$i]['g_result'];
-						$upid=$resultList[$i]['g_id'];
-						$sqlup = "update g_zhudan set g_mingxi_2='$reup' where g_id=$upid";
-						
-						$dba->query($sqlup, 2);
-						$resultList[$i]['g_result'] = '贏';
-					
-					//zerc 20120802
-					}else if(($resultauto[0]['g_autofail']==1||$resultList[$i]['g_afail']==1) && $resultList[$i]['g_result'] == $resultList[$i]['g_mingxi_2']){
-						$reup=intval($resultList[$i]['g_result']);
-						$upid=$resultList[$i]['g_id'];
-						if($reup>1){
-							$reup--;
-						}else{
-							$reup++;
-						}
-						if($reup<10){
-							$reup = $reup;
-						}
-						$sqlup = "update g_zhudan set g_mingxi_2='$reup' where g_id=$upid";
-						
-						$dba->query($sqlup, 2);
-						$resultList[$i]['g_result'] = '输';
-					}else{
-					$resultList[$i]['g_result'] = $resultList[$i]['g_result'] == $resultList[$i]['g_mingxi_2'] ? '贏' : '輸';
-					}
-				}
-				else 
-				{ 
-					$n = $this->ResultCorrespond($numberList, $resultList[$i], 1); 
-					if (($resultList[$i]['g_mingxi_2'] == '龍' || $resultList[$i]['g_mingxi_2'] == '虎') && $n == '和')
-						$resultList[$i]['g_result'] = '和';
-					else{
-						$gname=$resultList[$i]['g_nid'];
-						$dba = new DB();
-						$sqlauto = "SELECT `g_autowin`, `g_autofail` FROM `g_user` WHERE `g_name` = '$gname'";
-						$resultauto = $dba->query($sqlauto, 1);
-						if($resultauto[0]['g_autowin']==1||$resultList[$i]['g_awin']==1){
-							$reup=$n;
-							$upid=$resultList[$i]['g_id'];
-							#$sqlup = "update g_zhudan set g_mingxi_2='$reup' where g_id=$upid"; 
-							#$dba->query($sqlup, 2);
-							$resultList[$i]['g_result'] = '贏';
-							
-						//zerc 20120802
-						}else if(($resultauto[0]['g_autofail']==1||$resultList[$i]['g_afail']==1) && $n == $resultList[$i]['g_mingxi_2']){
-							$reup=$n;
-							$upid=$resultList[$i]['g_id'];
-							$arr1 = array('單','雙','龍','虎','大','小','東','南','西','北','中','發','白');
-							$arr2 = array('AA','BB','CC','DD','EE','FF','HH','II','JJ','KK','LL','MM','NN');
-							$arr3 = array('雙','單','虎','龍','小','大','南','西','北','中','發','白','東');
-							$reup = str_replace($arr1,$arr2,$reup);	
-							$reup = str_replace($arr2,$arr3,$reup);
-							#$sqlup = "update g_zhudan set g_mingxi_2='$reup' where g_id=$upid";
-							#$dba->query($sqlup, 2);
-							$resultList[$i]['g_result'] = '输';
-						}else{
-							$resultList[$i]['g_result'] = $n == $resultList[$i]['g_mingxi_2'] ? '贏' : '輸';
-						}
-					}
-				}
-			}
-		}
-		$allMoney = 0;
-		if(isset($resultList)){ 
-			$result = $resultList; 
-			for ($i=0; $i<count($result); $i++)
-			{
-				$money = 0;
-				$tuiShui = sumTuiSui ($result[$i]);
-				if ($result[$i]['g_result'] == '和'&& Copyright)
-				{
-					$money = $result[$i]['g_jiner'];
-					$result[$i]['g_win'] = 0;
-				}
-				else if ($result[$i]['g_result'] == '贏'&& Copyright)
-				{
-					$_tuiShui =	$result[$i]['g_jiner'] * $tuiShui;
-					$money = $result[$i]['g_jiner'] * $result[$i]['g_odds'] + $_tuiShui;
-					$result[$i]['g_win'] = $money - $result[$i]['g_jiner'];
-				}
-				else 
-				{
-					$_tuiShui =	$result[$i]['g_jiner'] * $tuiShui;
-					$d = -$result[$i]['g_jiner'];
-					$money = $_tuiShui;
-					$result[$i]['g_win'] = $d  + $_tuiShui;
-				}
-				$ConfigModel = configModel("`g_max_money`");
-				if ($result[$i]['g_win'] > $ConfigModel['g_max_money']&& Copyright)
-				{
-					$result[$i]['g_win'] = $ConfigModel['g_max_money'];
-					$money = $ConfigModel['g_max_money'];
-				}
-				if ($this->sum == true&& Copyright)
-				{
-					#$g_money_yes = $this->db->query("SELECT `g_money_yes` FROM `g_user` WHERE `g_name` = '{$result[$i]['g_nid']}' ", 1);
-					#$smoney = $g_money_yes[0]['g_money_yes'] + $money;
-					#$this->db->query("UPDATE `g_user` SET `g_money_yes` = '{$smoney}' WHERE `g_name` = '{$result[$i]['g_nid']}' LIMIT 1", 2);
-				}
-				$mx = $result[$i]['g_mingxi_2_str'] == null ? null : " ,`g_mingxi_2_str`='{$result[$i]['g_mingxi_2_str']}' ";
-				$mx = " ,`g_mingxi_2_str`='{$result[$i]['g_mingxi_2_str']}' ";
-			
-				$getuser=Koushui($result[$i]['g_nid']);
-	
-				if ($result[$i]['g_win']>$getuser['g_win_d']){
-					$getgwin=$result[$i]['g_win']-$getuser['g_win_k'];
-				}else{
-					$getgwin=$result[$i]['g_win'];
-				}
-				$allMoney += $money;
-				#$this->db->query("UPDATE `g_zhudan` SET `g_win` = '{$getgwin}' {$mx} WHERE `g_id` = {$result[$i]['g_id']} LIMIT 1 ", 2);
-			} 
-		}
-		return $allMoney;
-	}
+
 	private function ResultCorrespond ($numberList, $resultList, $param=0)
 	{
 		if ($param == 0&& Copyright)

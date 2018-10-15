@@ -30,7 +30,7 @@ class UserModel
 				     " (SELECT `g_login_id` FROM `g_user` WHERE g_name = '{$userName}' {$pwd}) UNION ".
 					 " (SELECT `g_s_name` FROM `g_relation_user` WHERE g_s_name = '{$userName}' {$pwd}) UNION ".
 				     " (SELECT `g_login_id` FROM `g_rank` WHERE g_name = '{$userName}' {$pwd}) ";
-		 
+
 		return $this->db->query($sql, 0);
 	}
 	

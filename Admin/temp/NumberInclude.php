@@ -7,7 +7,8 @@
   Date:2012-02-18
 */
 
-session_start(); 
+session_start();
+
 if (isset($_SESSION['GameType']) && $_SESSION['GameType'] == 2){
 	header('Location:/Admin/temp/openNumbers_cq.php');
 } else if (isset($_SESSION['GameType']) && $_SESSION['GameType'] == 3){
@@ -20,7 +21,6 @@ if (isset($_SESSION['GameType']) && $_SESSION['GameType'] == 2){
 	header('Location:/Admin/temp/openNumbers_kl8.php');
 }
 else{
-	
 	 header('Location:/Admin/temp/openNumbers.php');
 }
 ?>

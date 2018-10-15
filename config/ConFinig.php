@@ -61,7 +61,7 @@ $sPort[8] = '';
 $sPort[9] = '';
 
 //导航域名
-$hHome[0] = 'oaxyp.levy.com';
+$hHome[0] = '';
 $hHome[1] = '';
 $hHome[2] = '';
 $hHome[3] = '';
@@ -73,7 +73,7 @@ $hHome[8] = '';
 $hHome[9] = '';
 
 //导航端口
-$hPort[0] = '82';
+$hPort[0] = '';
 $hPort[1] = '';
 $hPort[2] = '';
 $hPort[3] = '';
@@ -98,7 +98,7 @@ $mHome[8] = '';
 $mHome[9] = '';
 
 //前臺端口
-$mPort[0] = '83';//采集端口
+$mPort[0] = '82';//采集端口
 $mPort[1] = '80';//会员端口
 $mPort[2] = '';
 $mPort[3] = '';

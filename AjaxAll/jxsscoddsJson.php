@@ -9,12 +9,12 @@
 
 define('Copyright', 'Author QQ: 1234567');
 define('ROOT_PATH', $_SERVER["DOCUMENT_ROOT"].'/');
-#if ($_SERVER["REQUEST_METHOD"] != "POST") {exit;}
+if ($_SERVER["REQUEST_METHOD"] != "POST") {exit;}
 include_once ROOT_PATH.'functioned/cheCookie.php';
 include_once ROOT_PATH.'config/Oddes.php';
 //include_once ROOT_PATH.'Admin/config/AdminConfig.php';
 global $user;
-$tid = $_POST['tid'] ? $_POST['tid'] : $_GET['tid'];
+$tid = $_POST['tid'];
 
 if ($tid == 1)
 {

@@ -1102,7 +1102,7 @@ function insertNumbers($day, $d, $times, $startNum, $endNum, $closeTime=2)
 
 //极速时时彩加载开奖  by fushang QQ:1391082827
 function insertNumber_jxssc($day=0, $closeTime=1)
-{ 
+{
 	global $db;
     $insertDate=date('Y-m-d 06:09:15',($day>=1?time()+24*3600:time()));
 	$day=date('Y-m-d',strtotime($insertDate));
@@ -1118,7 +1118,7 @@ function insertNumber_jxssc($day=0, $closeTime=1)
 		$dateArr['Number'][] = $baseNumber;
 		$dateArr['stratDate'][] = $startDate;
 		$dateArr['endDate'][] = $endDate;
-	} 
+	}
 	$db->query("DELETE FROM `g_kaipan3` WHERE `g_id` > 0 ", 2);
 	$sql = "INSERT INTO `g_kaipan3` ( `g_qishu`, `g_feng_date`, `g_open_date`, `g_lock` ) VALUES ";
 	for ($i=0; $i<count($dateArr['Number']); $i++)
@@ -1126,7 +1126,7 @@ function insertNumber_jxssc($day=0, $closeTime=1)
 		$lock = $i == 0 ? 2 : 1;
 		$sql .= "( '{$dateArr['Number'][$i]}', '{$dateArr['endDate'][$i]}', '{$dateArr['stratDate'][$i]}', '{$lock}' ),";
 	}
-	$sql = mb_substr($sql, 0, mb_strlen($sql, 'utf-8')-1); 
+	$sql = mb_substr($sql, 0, mb_strlen($sql, 'utf-8')-1);
 	$db->query($sql, 2);
 }
 

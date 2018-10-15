@@ -77,8 +77,10 @@ function isUserMoney ($money, $max,$totalmoney)
 		exit("MoneyrError");
 	if ($totalmoney > $max['KeYongEr'])
 		exit(alert_href('抱歉！您的可用餘額不足。', '../left.php'));
-	if ($money > $max['DanZhu_XianEr']) exit(alert_href('抱歉！您的單注限額1為 '.$max['DanZhu_XianEr'], '../left.php'));
-	if (($money+$max['DanQi_YiXia']) > $max['DanQi_XianEr']) exit(alert_href('抱歉！您的單期限額為 '.$max['DanQi_XianEr'], '../left.php'));
+	if ($money > $max['DanZhu_XianEr'])
+		exit(alert_href('抱歉！您的單注限額為 '.$max['DanZhu_XianEr'], '../left.php'));
+	if (($money+$max['DanQi_YiXia']) > $max['DanQi_XianEr'])
+		exit(alert_href('抱歉！您的單期限額為 '.$max['DanQi_XianEr'], '../left.php'));
 }
 function isUserMoney_wap ($money, $max,$totalmoney)
 {

@@ -116,8 +116,8 @@ $u=$loginName;
 
 $dbhost                                = "localhost";                 
 $dbuser                                = "root";                 
-$dbpass                                = "zkeys";                         
-$dbname                                = "oasql";           
+$dbpass                                = "root";                         
+$dbname                                = "1188aa";           
 mysql_connect($dbhost,$dbuser,$dbpass);
 mysql_select_db($dbname);
 mysql_query("SET NAMES utf8"); 
